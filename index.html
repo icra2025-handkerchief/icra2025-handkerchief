@@ -1,74 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Handkerchief Spinning with Parallel Anti-Parallelogram Wrist</title>
-  <meta charset="utf-8">
-  <meta property="og:title" content="Periodic Steady-State Control of Handkerchief Spinning">
-  <meta property="og:description" content="Parallel Anti-Parallelogram (PAP) tendon-driven wrist for dynamic fabric manipulation">
-  <link rel="stylesheet" href="style.css?1">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}})
-  </script>
-  <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-  </script>
+	<meta charset="utf-8">
+	<title>Periodic Steady-State Control of a Handkerchief-Spinning Task Using a Parallel Anti-Parallelogram Tendon-driven Wrist</title>
+	<meta property="og:title" content="Handkerchief Spinning Control">
+	<meta property="og:description" content="Parallel Anti-Parallelogram Tendon-driven Wrist for Periodic Steady-State Control">
+	<link rel="stylesheet" href="style.css?1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}}); 
+	</script>
+	<script type="text/javascript" async
+		src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+	<script type="text/javascript">
+		function toggle(id) {
+			var e = document.getElementById(id);
+			if(e.style.display == 'block')
+				e.style.display = 'none';
+			else
+				e.style.display = 'block';
+		}
+	</script>
 </head>
 
+<body>
 <div class="header" id="top">
-  <h1>
-    Periodic Steady-State Control of a Handkerchief-Spinning Task <br>
-    Using a Parallel Anti-Parallelogram Tendon-driven Wrist
-  </h1>
+	<h1>
+		Periodic Steady-State Control of a Handkerchief-Spinning Task <br> Using a Parallel Anti-Parallelogram Tendon-driven Wrist
+	</h1>
 </div>
 
 <div class="content">
-  <h2>Abstract</h2>
-  <p class="abstract">
-    Spinning flexible objects, exemplified by traditional Chinese handkerchief performances, demands periodic steady-state motions under nonlinear dynamics with frictional contacts and boundary constraints. 
-    Humans learn this skill intuitively, whereas robots lack suitable wrist dexterity and effective strategies. 
-    We propose a parallel anti-parallelogram (PAP) tendon-driven wrist with rapid dynamic response and a control-oriented model for initiation dynamics. 
-    Optimized initiation strategies enable robust transitions from rest to stable spinning. 
-    Our results show that combining PAP wrist dexterity with model-based control equips humanoid robots with new capabilities for manipulating flexible objects in dynamic tasks.
-    <!-- (Project link withheld for blind review) -->
-  </p>
+	<div>
+		<h2>Abstract</h2>
+		<p class="abstract">
+			Spinning flexible objects, exemplified by traditional Chinese handkerchief performances, demands periodic steady-state motions under nonlinear dynamics with frictional contacts and boundary constraints. Humans learn this skill almost intuitively after limited training, whereas humanoid robots lack both suitable wrist dexterity and effective strategies for initial and stable control. To address this gap, we develop a parallel anti-parallelogram tendon-driven wrist with rapid dynamic response and propose a simplified control-oriented model to capture the initiation dynamics. Using this model, we optimize initiation strategies, enabling robust transitions from rest to stable periodic spinning. Our results demonstrate that combining wrist dexterity with model-based control provides humanoid robots with new capabilities for manipulating flexible objects in dynamic tasks. More visualization results can be found at <a href="https://icra2025-handkerchief.github.io/icra2025-handkerchief/" target="_blank">this link</a>.
+		</p>
+	</div>
 
-  <div class="hr"></div>
+	<div class="hr"></div>
+	<div>
+		<h2>Figures and Experiments</h2>
+		<div class="figure-caption">
+			<p>Illustration of the proposed framework.</p>
+		</div>
+		<div class="figure" style="height: 410px; background-image: url(figure/abstract.jpg);"></div>
 
-  <h2>Overview</h2>
-  <div class="figure" style="height: 420px; background-image: url(figure/abstract.jpg);"></div>
+		<div class="figure-caption">
+			<p>Overview of the dexterous wrist and its kinematics.</p>
+		</div>
+		<div class="figure" style="height: 410px; background-image: url(figure/section2.jpg);"></div>
 
-  <h2>Contributions</h2>
-  <ul>
-    <li><b>Parallel anti-parallelogram tendon-driven wrist:</b> high dynamic response, $90^\circ$ omnidirectional rotation, shortened effective length.</li>
-    <li><b>Control-oriented modeling and initiation strategy:</b> robust rest-to-steady transitions without explicit friction modeling.</li>
-    <li><b>Hierarchical control:</b> two-level controller with kinematic initiation and motor-level periodic maintenance.</li>
-    <li><b>Empirical validation:</b> simulations and hardware confirm robust spin initiation and sustained periodic motion.</li>
-  </ul>
+		<div class="figure-caption">
+			<p>High–low level hierarchical control for the handkerchief spin task.</p>
+		</div>
+		<div class="figure" style="height: 410px; background-image: url(figure/control_scheme1.jpg);"></div>
+	</div>
 
-  <h2>Experimental Results</h2>
-  <h3>Performance of Different Strategies</h3>
-  <p>
-    We compare acceleration-based, directional-throw, and periodic-energy strategies. 
-    The acceleration-based strategy unfolds the handkerchief quickly and achieves stable spinning, consistent with simulation analysis.
-  </p>
-  <div class="figure" style="height: 420px; background-image: url(Experiments.jpg);"></div>
+	<h2>Video</h2>
+	<div style="margin-bottom: 32px; display: flex; justify-content: center;">
+	    <div style="width: 1000px;">
+	        <span></span>
+	        <video playsinline autoplay loop preload muted width="1000" height="auto">
+	            <source src="Videos/video.mp4" type="video/mp4"/>
+	        </video>
+	    </div>
+	</div>
 
-  <h3>Hierarchical Control Demonstration</h3>
-  <p>
-    The tendon-driven wrist under the proposed high–low level control scheme achieves human-like dexterity, performing circular trajectories around arbitrary axes and sustaining dynamic handkerchief spinning.
-  </p>
-  <div class="figure" style="height: 420px; background-image: url(figure/control_scheme1.jpg);"></div>
-
-  <h2>Video</h2>
-  <div style="margin-bottom: 32px; display: flex; justify-content: center;">
-    <div style="width: 1000px;">
-      <video playsinline autoplay loop muted width="1000" height="auto">
-        <source src="Videos/demo.mp4" type="video/mp4"/>
-      </video>
-    </div>
-  </div>
+	<style>
+		.content-video {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 32px;
+		}
+	
+		.content-video-frame {
+			width: 100%;
+			max-width: 1200px;
+		}
+	
+		.content-video-frame video {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
 </div>
 
 <footer>
-  <a href="#top" class="bold">To top &UpArrow;</a>
+	<a href="#top" class="bold">To top &UpArrow;</a>
 </footer>
+</body>
+</html>
