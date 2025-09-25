@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}}); 
   </script>
   <script type="text/javascript" async
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -19,122 +19,158 @@
       else e.style.display = 'block';
     }
   </script>
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #000; /* 整个网页背景黑色 */
+      color: #fff;            /* 默认文字白色 */
+      font-family: "Google Sans","Noto Sans",sans-serif;
+    }
+
+    .header {
+      position: relative;
+      width: 100%;
+      height: 100vh;  /* 占满一屏高度 */
+      overflow: hidden;
+    }
+
+    .header video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;  /* 填充裁剪 */
+    }
+
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+    }
+
+    a.bold {
+      font-weight: bold;
+      color: #fff;
+    }
+  </style>
 </head>
 
-<div class="header" id="top" style="text-align:center; margin:40px auto;">
-  <video
-    playsinline
-    autoplay
-    loop
-    muted
-    preload="metadata"
-    width="1000"
-    style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.15);">
-    <source src="Videos/title.mp4" type="video/mp4"/>
-    Your browser does not support HTML5 video.
-  </video>
-</div>
-
-<div class="content">
-
-  <h2>METHOD</h2>
-
-  <h3>The proposed I-MPPI architecture</h3>
-  <p>
-    The overall architecture consists of a learned simple model and an iterative MPPI controller. 
-    In each control cycle, multiple short-horizon sampling and weighted updates are performed, 
-    and only the first action is executed. This iterative sampling progressively reduces the 
-    exploration range, improving stability and accuracy.
-  </p>
-  <div class="figure" style="height: 410px; background-image: url(Figures/fig1.png);"></div>
-
-  <h3>Simple model</h3>
-  <p>
-    The model is a compact one-step forward predictor (MLP), trained directly from robot interaction data. 
-    The dataset includes steady-state responses, random excitation, and trajectory tracking runs to ensure 
-    sufficient coverage of the operating envelope.
-  </p>
-  <div class="content-video">
-    <div class="content-video-frame medium">
-      <span></span>
-      <video playsinline autoplay loop muted>
-        <source src="Videos/Simplemodel.mp4" type="video/mp4"/>
-      </video>
-    </div>
+<body>
+  <!-- 全屏背景视频 -->
+  <div class="header" id="top">
+    <video playsinline autoplay loop muted preload="metadata">
+      <source src="Videos/title.mp4" type="video/mp4"/>
+      Your browser does not support HTML5 video.
+    </video>
   </div>
 
-  <h3>Iterative MPPI</h3>
-  <p>
-    The controller builds upon MPPI, but performs multiple refinement iterations per cycle and 
-    applies a warm-start strategy to reduce variance and accelerate convergence.
-  </p>
-  <div class="figure" style="height: 410px; background-image: url(Figures/I-MPPI.jpg);"></div>
+  <!-- 原始正文内容 -->
+  <div class="content">
 
-  <h3>Iterative annealing</h3>
-  <p>
-    In each iteration, the sampling noise scale is gradually reduced, transitioning from 
-    coarse exploration to local fine-tuning. This annealing mechanism reduces jitter and 
-    improves steady-state precision.
-  </p>
-  <div class="figure" style="height: 410px; background-image: url(Figures/anneal.png);"></div>
+    <h2>METHOD</h2>
 
-  <h3>Hardware of soft robot</h3>
-  <p>
-    The experimental platform is a multi-segment rigid–flexible soft robot, equipped with nine pneumatic 
-    actuation units and corresponding drivers, as well as an optical tracking system for real-time feedback.
-  </p>
-  <div class="figure" style="height: 410px; background-image: url(Figures/robot.png);"></div>
+    <h3>The proposed I-MPPI architecture</h3>
+    <p>
+      The overall architecture consists of a learned simple model and an iterative MPPI controller. 
+      In each control cycle, multiple short-horizon sampling and weighted updates are performed, 
+      and only the first action is executed. This iterative sampling progressively reduces the 
+      exploration range, improving stability and accuracy.
+    </p>
+    <div class="figure" style="height: 410px; background-image: url(Figures/fig1.png);"></div>
 
-  <h2>EXPERIMENTS ON REAL ROBOTS</h2>
-
-  <h3>Trajectory tracking</h3>
-  <p>
-    We evaluated circular, square, and figure-eight reference paths, comparing theoretical trajectories 
-    with actual execution. The results show that the method achieves millimeter-level accuracy across 
-    all paths, with the best performance on smooth references.
-  </p>
-  <div class="content-video">
-    <div class="content-video-frame medium">
-      <span></span>
-      <video playsinline autoplay loop muted>
-        <source src="Videos/Exp1.mp4" type="video/mp4"/>
-      </video>
+    <h3>Simple model</h3>
+    <p>
+      The model is a compact one-step forward predictor (MLP), trained directly from robot interaction data. 
+      The dataset includes steady-state responses, random excitation, and trajectory tracking runs to ensure 
+      sufficient coverage of the operating envelope.
+    </p>
+    <div class="content-video">
+      <div class="content-video-frame medium">
+        <video playsinline autoplay loop muted>
+          <source src="Videos/Simplemodel.mp4" type="video/mp4"/>
+        </video>
+      </div>
     </div>
+
+    <h3>Iterative MPPI</h3>
+    <p>
+      The controller builds upon MPPI, but performs multiple refinement iterations per cycle and 
+      applies a warm-start strategy to reduce variance and accelerate convergence.
+    </p>
+    <div class="figure" style="height: 410px; background-image: url(Figures/I-MPPI.jpg);"></div>
+
+    <h3>Iterative annealing</h3>
+    <p>
+      In each iteration, the sampling noise scale is gradually reduced, transitioning from 
+      coarse exploration to local fine-tuning. This annealing mechanism reduces jitter and 
+      improves steady-state precision.
+    </p>
+    <div class="figure" style="height: 410px; background-image: url(Figures/anneal.png);"></div>
+
+    <h3>Hardware of soft robot</h3>
+    <p>
+      The experimental platform is a multi-segment rigid–flexible soft robot, equipped with nine pneumatic 
+      actuation units and corresponding drivers, as well as an optical tracking system for real-time feedback.
+    </p>
+    <div class="figure" style="height: 410px; background-image: url(Figures/robot.png);"></div>
+
+    <h2>EXPERIMENTS ON REAL ROBOTS</h2>
+
+    <h3>Trajectory tracking</h3>
+    <p>
+      We evaluated circular, square, and figure-eight reference paths, comparing theoretical trajectories 
+      with actual execution. The results show that the method achieves millimeter-level accuracy across 
+      all paths, with the best performance on smooth references.
+    </p>
+    <div class="content-video">
+      <div class="content-video-frame medium">
+        <video playsinline autoplay loop muted>
+          <source src="Videos/Exp1.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+
+    <h3>Moving target tracking</h3>
+    <p>
+      Eight sequential targets were placed near the workspace boundaries. The robot converged to 
+      each target quickly, with average errors on the order of a few millimeters. Errors were 
+      larger for diagonal targets, consistent with stronger coupling and larger actuation ranges, 
+      but overall performance followed expected modeling trends.
+    </p>
+    <div class="content-video">
+      <div class="content-video-frame medium">
+        <video playsinline autoplay loop muted>
+          <source src="Videos/Exp2.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+
+    <h2>VIDEO</h2>
+    <p>
+      The complete video demonstrates the deployment of the method on multi-segment soft robots, 
+      including model training, I-MPPI control process, and real-world task execution.
+    </p>
+    <div style="margin-bottom: 32px; display: flex; justify-content: center;">
+      <div style="width: 1000px;">
+        <video playsinline autoplay loop preload muted width="1000" height="auto">
+          <source src="Videos/ICRA_5127_IMPPI.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+
   </div>
 
-  <h3>Moving target tracking</h3>
-  <p>
-    Eight sequential targets were placed near the workspace boundaries. The robot converged to 
-    each target quickly, with average errors on the order of a few millimeters. Errors were 
-    larger for diagonal targets, consistent with stronger coupling and larger actuation ranges, 
-    but overall performance followed expected modeling trends.
-  </p>
-  <div class="content-video">
-    <div class="content-video-frame medium">
-      <span></span>
-      <video playsinline autoplay loop muted>
-        <source src="Videos/Exp2.mp4" type="video/mp4"/>
-      </video>
-    </div>
-  </div>
-
-  <h2>VIDEO</h2>
-  <p>
-    The complete video demonstrates the deployment of the method on multi-segment soft robots, 
-    including model training, I-MPPI control process, and real-world task execution.
-  </p>
-  <div style="margin-bottom: 32px; display: flex; justify-content: center;">
-    <div style="width: 1000px;">
-      <span></span>
-      <video playsinline autoplay loop preload muted width="1000" height="auto">
-        <source src="Videos/ICRA_5127_IMPPI.mp4" type="video/mp4"/>
-      </video>
-    </div>
-  </div>
-
-</div>
-
-
-<footer>
-  <a href="#top" class="bold">To top &UpArrow;</a>
-</footer>
+  <footer>
+    <a href="#top" class="bold">To top &UpArrow;</a>
+  </footer>
+</body>
