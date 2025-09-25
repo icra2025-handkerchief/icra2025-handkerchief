@@ -1,97 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Periodic Steady-State Control of a Handkerchief-Spinning Task Using a Parallel Anti-Parallelogram Tendon-driven Wrist</title>
-	<meta property="og:title" content="Handkerchief Spinning Control">
-	<meta property="og:description" content="Parallel Anti-Parallelogram Tendon-driven Wrist for Periodic Steady-State Control">
-	<link rel="stylesheet" href="style.css?1">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/x-mathjax-config">
-		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}}); 
-	</script>
-	<script type="text/javascript" async
-		src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-	</script>
-	<script type="text/javascript">
-		function toggle(id) {
-			var e = document.getElementById(id);
-			if(e.style.display == 'block')
-				e.style.display = 'none';
-			else
-				e.style.display = 'block';
-		}
-	</script>
+  <title>I-MPPI for Multi-Segment Soft Robots</title>
+  <meta charset="utf-8">
+  <meta property="og:title" content="Title">
+  <meta property="og:description" content="Test">
+  <link rel="stylesheet" href="style.css?1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script type="text/javascript">
+    function toggle(id) {
+      var e = document.getElementById(id);
+      if (e.style.display == 'block') e.style.display = 'none';
+      else e.style.display = 'block';
+    }
+  </script>
 </head>
 
-<body>
-<div class="header" id="top">
-	<h1>
-		Periodic Steady-State Control of a Handkerchief-Spinning Task <br> Using a Parallel Anti-Parallelogram Tendon-driven Wrist
-	</h1>
+<div class="header" id="top" style="text-align:center; margin:40px auto;">
+  <video
+    playsinline
+    autoplay
+    loop
+    muted
+    preload="metadata"
+    width="1000"
+    style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.15);">
+    <source src="Videos/title.mp4" type="video/mp4"/>
+    Your browser does not support HTML5 video.
+  </video>
 </div>
 
 <div class="content">
-	<div>
-		<h2>Abstract</h2>
-		<p class="abstract">
-			Spinning flexible objects, exemplified by traditional Chinese handkerchief performances, demands periodic steady-state motions under nonlinear dynamics with frictional contacts and boundary constraints. Humans learn this skill almost intuitively after limited training, whereas humanoid robots lack both suitable wrist dexterity and effective strategies for initial and stable control. To address this gap, we develop a parallel anti-parallelogram tendon-driven wrist with rapid dynamic response and propose a simplified control-oriented model to capture the initiation dynamics. Using this model, we optimize initiation strategies, enabling robust transitions from rest to stable periodic spinning. Our results demonstrate that combining wrist dexterity with model-based control provides humanoid robots with new capabilities for manipulating flexible objects in dynamic tasks. More visualization results can be found at <a href="https://icra2025-handkerchief.github.io/icra2025-handkerchief/" target="_blank">this link</a>.
-		</p>
-	</div>
 
-	<div class="hr"></div>
-	<div>
-		<h2>Figures and Experiments</h2>
-		<div class="figure-caption">
-			<p>Illustration of the proposed framework.</p>
-		</div>
-		<div class="figure" style="height: 410px; background-image: url(Figure/abstract.jpg);"></div>
+  <h2>METHOD</h2>
 
-		<div class="figure-caption">
-			<p>Overview of the dexterous wrist and its kinematics.</p>
-		</div>
-		<div class="figure" style="height: 410px; background-image: url(Figure/section2.jpg);"></div>
+  <h3>The proposed I-MPPI architecture</h3>
+  <p>
+    The overall architecture consists of a learned simple model and an iterative MPPI controller. 
+    In each control cycle, multiple short-horizon sampling and weighted updates are performed, 
+    and only the first action is executed. This iterative sampling progressively reduces the 
+    exploration range, improving stability and accuracy.
+  </p>
+  <div class="figure" style="height: 410px; background-image: url(Figures/fig1.png);"></div>
 
-		<div class="figure-caption">
-			<p>High–low level hierarchical control for the handkerchief spin task.</p>
-		</div>
-		<div class="figure" style="height: 410px; background-image: url(Figure/control_scheme1.jpg);"></div>
-	</div>
+  <h3>Simple model</h3>
+  <p>
+    The model is a compact one-step forward predictor (MLP), trained directly from robot interaction data. 
+    The dataset includes steady-state responses, random excitation, and trajectory tracking runs to ensure 
+    sufficient coverage of the operating envelope.
+  </p>
+  <div class="content-video">
+    <div class="content-video-frame medium">
+      <span></span>
+      <video playsinline autoplay loop muted>
+        <source src="Videos/Simplemodel.mp4" type="video/mp4"/>
+      </video>
+    </div>
+  </div>
 
-	<h2>Video</h2>
-<!-- 	<div style="margin-bottom: 32px; display: flex; justify-content: center;">
-	    <div style="width: 1000px;">
-	        <span></span>
-	        <video playsinline autoplay loop preload muted width="1000" height="auto">
-	            <source src="Videos/video.mp4" type="video/mp4"/>
-	        </video>
-	    </div>
-	</div> -->
+  <h3>Iterative MPPI</h3>
+  <p>
+    The controller builds upon MPPI, but performs multiple refinement iterations per cycle and 
+    applies a warm-start strategy to reduce variance and accelerate convergence.
+  </p>
+  <div class="figure" style="height: 410px; background-image: url(Figures/I-MPPI.jpg);"></div>
 
-	<style>
-		.content-video {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			margin-bottom: 32px;
-		}
-	
-		.content-video-frame {
-			width: 100%;
-			max-width: 1200px;
-		}
-	
-		.content-video-frame video {
-			width: 100%;
-			height: 100%;
-		}
-	</style>
+  <h3>Iterative annealing</h3>
+  <p>
+    In each iteration, the sampling noise scale is gradually reduced, transitioning from 
+    coarse exploration to local fine-tuning. This annealing mechanism reduces jitter and 
+    improves steady-state precision.
+  </p>
+  <div class="figure" style="height: 410px; background-image: url(Figures/anneal.png);"></div>
+
+  <h3>Hardware of soft robot</h3>
+  <p>
+    The experimental platform is a multi-segment rigid–flexible soft robot, equipped with nine pneumatic 
+    actuation units and corresponding drivers, as well as an optical tracking system for real-time feedback.
+  </p>
+  <div class="figure" style="height: 410px; background-image: url(Figures/robot.png);"></div>
+
+  <h2>EXPERIMENTS ON REAL ROBOTS</h2>
+
+  <h3>Trajectory tracking</h3>
+  <p>
+    We evaluated circular, square, and figure-eight reference paths, comparing theoretical trajectories 
+    with actual execution. The results show that the method achieves millimeter-level accuracy across 
+    all paths, with the best performance on smooth references.
+  </p>
+  <div class="content-video">
+    <div class="content-video-frame medium">
+      <span></span>
+      <video playsinline autoplay loop muted>
+        <source src="Videos/Exp1.mp4" type="video/mp4"/>
+      </video>
+    </div>
+  </div>
+
+  <h3>Moving target tracking</h3>
+  <p>
+    Eight sequential targets were placed near the workspace boundaries. The robot converged to 
+    each target quickly, with average errors on the order of a few millimeters. Errors were 
+    larger for diagonal targets, consistent with stronger coupling and larger actuation ranges, 
+    but overall performance followed expected modeling trends.
+  </p>
+  <div class="content-video">
+    <div class="content-video-frame medium">
+      <span></span>
+      <video playsinline autoplay loop muted>
+        <source src="Videos/Exp2.mp4" type="video/mp4"/>
+      </video>
+    </div>
+  </div>
+
+  <h2>VIDEO</h2>
+  <p>
+    The complete video demonstrates the deployment of the method on multi-segment soft robots, 
+    including model training, I-MPPI control process, and real-world task execution.
+  </p>
+  <div style="margin-bottom: 32px; display: flex; justify-content: center;">
+    <div style="width: 1000px;">
+      <span></span>
+      <video playsinline autoplay loop preload muted width="1000" height="auto">
+        <source src="Videos/ICRA_5127_IMPPI.mp4" type="video/mp4"/>
+      </video>
+    </div>
+  </div>
+
 </div>
 
-<footer>
-	<a href="#top" class="bold">To top &UpArrow;</a>
-</footer>
-</body>
-</html>
 
+<footer>
+  <a href="#top" class="bold">To top &UpArrow;</a>
+</footer>
