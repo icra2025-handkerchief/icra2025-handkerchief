@@ -31,22 +31,21 @@
     .header {
       position: relative;
       width: 100%;
-      height: 100vh;  /* 占满一屏高度 */
+      height: 100vh; /* 占满一屏高度 */
       overflow: hidden;
+      background-color: #000; /* 背景黑色，防止有空白 */
     }
 
     .header video {
       position: absolute;
       top: 50%;
       left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 100%;
       transform: translate(-50%, -50%);
-      object-fit: cover;  /* 填充裁剪 */
+      object-fit: contain;  /* 保证视频完整显示 */
+      background-color: #000;
     }
-
     .content {
       max-width: 1100px;
       margin: 0 auto;
