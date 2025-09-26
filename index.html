@@ -143,13 +143,15 @@
     </p>
     <div class="figure" style="background-image:url(Figures/wristcompare.png)"></div>
 
-    <h3>Parallel anti-parallelogram tendon-driven wrist</h3>
+    <h3>Parallel anti-parallelogram tendon-driven wrist and modeling</h3>
     <p>
       Inspired by human wrist anatomy, we design a compact 2-DOF tendon-driven joint with two orthogonal anti-parallelogram linkages. 
-      The design reduces footprint and inertia by $\sim50\%$, preserves $90^\circ$ omnidirectional rotation, and integrates decoupled encoders for precise roll–pitch sensing. 
-      Tendons are routed through guides to rear-mounted motors, minimizing distal inertia and enhancing dynamic responsiveness.
+      The design reduces footprint and inertia by $\sim50\%$, preserves $90^\circ$ omnidirectional rotation, and integrates decoupled encoders for precise roll-pitch sensing. 
+      Tendons are routed through guides to rear-mounted motors, minimizing distal inertia and enhancing dynamic responsiveness. 
+
+      The wrist is then modeled as a spherical rolling-contact joint. Its motion is described by the bending plane angle alpha and the deflection angle beta, which directly correspond to twisting and deflection in the handkerchief spinning task.
     </p>
-    <div class="figure" style="background-image:url(Figures/wristdesign.png)"></div>
+    <div class="figure" style="background-image:url(Figures/designandmodel.png)"></div>
 
     <h3>Hierarchical control</h3>
     <p>
