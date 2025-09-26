@@ -37,10 +37,14 @@
     h2 { margin: 32px 0 12px; font-size:28px; }
     h3 { margin: 24px 0 8px; font-size:20px; }
 
-    .figure {
-      width:100%; height:410px; margin:16px 0 28px;
-      background-size:cover; background-position:center;
-      border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,.35);
+    /* 图片样式 */
+    .figure-img {
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:14px;
+      box-shadow:0 8px 24px rgba(0,0,0,.35);
+      margin:16px 0 28px;
     }
 
     .content-video { display:flex; justify-content:center; margin:16px 0 28px; }
@@ -132,26 +136,26 @@
     <p>
       Together, this framework enables precise and robust handkerchief spinning.
     </p>
-    <div class="figure" style="background-image:url(Figures/system_perspective.png)"></div>
+    <img class="figure-img" src="Figures/system_perspective.png" alt="System perspective">
 
     <h2>DETAILED METHOD</h2>
 
     <h3>Intuitive dexterous wrist</h3>
     <p>
-     We first analyzed the mobility of the human wrist. In the ulnar-radial direction, the human wrist ranges from about $-45^\circ$ to $+25^\circ$. In flexion and extension, the range is $-75^\circ$ to $+75^\circ$ degrees.
+     We first analyzed the mobility of the human wrist. In the ulnar-radial direction, the human wrist ranges from about $-45^\circ$ to $+25^\circ$. In flexion and extension, the range is $-75^\circ$ to $+75^\circ$.  
      Based on these observations, we developed an intuitive dexterous wrist that achieves omnidirectional $90^\circ$ rotation without singularities. The intuitive dexterous wrist extends these ranges by approximately 100% in ulnar deviation, 260% in radial deviation, and about 20% in flexion-extension.
     </p>
-    <div class="figure" style="background-image:url(Figures/wristcompare.png)"></div>
+    <img class="figure-img" src="Figures/wristcompare.png" alt="Wrist comparison">
 
     <h3>Parallel anti-parallelogram tendon-driven wrist and modeling</h3>
     <p>
       Inspired by human wrist anatomy, we design a compact 2-DOF tendon-driven joint with two orthogonal anti-parallelogram linkages. 
       The design reduces footprint and inertia by $\sim50\%$, preserves $90^\circ$ omnidirectional rotation, and integrates decoupled encoders for precise roll-pitch sensing. 
-      Tendons are routed through guides to rear-mounted motors, minimizing distal inertia and enhancing dynamic responsiveness. 
+      Tendons are routed through guides to rear-mounted motors, minimizing distal inertia and enhancing dynamic responsiveness.  
 
       The wrist is then modeled as a spherical rolling-contact joint. Its motion is described by the bending plane angle $\alpha$ and the deflection angle $\beta$, which directly correspond to twisting and deflection in the handkerchief spinning task.
     </p>
-    <div class="figure" style="background-image:url(Figures/designandmodel.png)"></div>
+    <img class="figure-img" src="Figures/designandmodel.png" alt="Design and model">
 
     <h3>Hierarchical control</h3>
     <p>
@@ -159,14 +163,14 @@
       at low level, two tendon motors execute commands. During initiation, kinematic control ensures acceleration; 
       once stable spinning emerges, direct periodic motor commands maintain motion with improved stability.
     </p>
-    <div class="figure" style="background-image:url(Figures/control_scheme.png)"></div>
+    <img class="figure-img" src="Figures/control_scheme.png" alt="Control scheme">
 
     <h3>Particle–spring model</h3>
     <p>
       To study initiation, we develop a particle–spring model that captures essential fabric dynamics under frictional contacts and boundary constraints. 
       This abstraction focuses on macroscopic effects relevant to control and enables evaluation of different initiation strategies.
     </p>
-    <div class="figure" style="background-image:url(Figures/particle_spring.png)"></div>
+    <img class="figure-img" src="Figures/particle_spring.png" alt="Particle–spring model">
 
     <h2>EXPERIMENTS</h2>
     <h3>Initiation strategies</h3>
@@ -187,7 +191,7 @@
       the Cartesian trajectory and $x/y$ profiles show precise tracking with fingertip $\mathrm{RMSE}=2.88\,\text{mm}$ and $R^2=0.9898$, 
       validating the hierarchical controller for coordinated axis reorientation and stable spinning.
     </p>
-    <div class="figure" style="background-image:url(Figures/variable_axis.png)"></div>
+    <img class="figure-img" src="Figures/variable_axis.png" alt="Variable-axis spinning">
 
     <h2>CONCLUSION</h2>
     <p>
@@ -255,4 +259,3 @@
   </script>
 </body>
 </html>
-
