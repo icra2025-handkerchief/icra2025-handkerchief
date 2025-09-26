@@ -165,12 +165,29 @@
     </p>
     <img class="figure-img" src="Figures/control_scheme.png" alt="Control scheme">
 
-    <h3>Particle–spring model</h3>
+    <h3>Particle–spring model and initiation strategy</h3>
     <p>
-      To study initiation, we develop a particle–spring model that captures essential fabric dynamics under frictional contacts and boundary constraints. 
-      This abstraction focuses on macroscopic effects relevant to control and enables evaluation of different initiation strategies.
+      In the handkerchief modeling and initiation strategy study, we carried out dedicated simulations. 
+      The handkerchief is represented by a particle–spring model under frictional contacts and boundary constraints. 
+      The evaluation is based on the unfolding area and Poincaré analysis. 
+      In particular, the Floquet multiplier provides a quantitative stability indicator: values less than one imply stability, while values greater than one indicate instability.
     </p>
-    <img class="figure-img" src="Figures/particle_spring.png" alt="Particle–spring model">
+
+    <ul>
+      <li><b>Acceleration-based strategy:</b> linear increase of radius and speed, Floquet multiplier = 0.80. This strategy achieves full and stable unfolding within a few seconds.</li>
+      <li><b>Directional-throwing strategy:</b> elliptic expansion with fixed speed, Floquet multiplier = 4.29. The dynamics diverge and the handkerchief fails to stabilize.</li>
+      <li><b>Periodic-energy injection strategy:</b> constant radius with oscillating speed, Floquet multiplier = 11.77. Unfolding cannot be completed and the motion remains unstable.</li>
+    </ul>
+
+    <p>
+      Among these, only the acceleration-based strategy proves robust and reliable, consistent with experimental observations.
+    </p>
+    <div class="content-video">
+      <video playsinline autoplay loop muted data-click-sound>
+        <source src="Videos/handkerchiefmodel.mp4" type="video/mp4"/>
+      </video>
+    </div>
+
 
     <h2>EXPERIMENTS</h2>
     <h3>Initiation strategies</h3>
