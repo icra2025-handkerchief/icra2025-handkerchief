@@ -112,9 +112,6 @@
       border-top:16px solid transparent;
       border-bottom:16px solid transparent;
     }
-
-    /* 鼠标指示 */
-    video[data-click-sound] { cursor: pointer; }
   </style>
 </head>
 
@@ -139,8 +136,9 @@
         These results show that combining task-tailored wrist hardware with control-oriented modeling enables robust rest-to-steady-state transitions and precise periodic manipulation of flexible fabrics.
       </p>
       <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
+        <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
           <source src="Videos/compare.mp4" type="video/mp4"/>
+          Your browser does not support HTML5 video.
         </video>
       </div>
 
@@ -201,8 +199,9 @@
         Among these, only the <strong>acceleration-based strategy</strong> proves robust and reliable, consistent with experimental observations.
       </p>
       <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
+        <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
           <source src="Videos/handkerchiefmodel.mp4" type="video/mp4"/>
+          Your browser does not support HTML5 video.
         </video>
       </div>
 
@@ -214,8 +213,9 @@
         Other strategies result in incomplete or unstable unfolding, consistent with Poincaré analysis.
       </p>
       <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
+        <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
           <source src="Videos/Exp1.mp4" type="video/mp4"/>
+          Your browser does not support HTML5 video.
         </video>
       </div>
 
@@ -226,8 +226,9 @@
         validating the hierarchical controller for coordinated axis reorientation and stable spinning.
       </p>
       <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
+        <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
           <source src="Videos/Exp2.mp4" type="video/mp4"/>
+          Your browser does not support HTML5 video.
         </video>
       </div>
 
@@ -240,10 +241,11 @@
 
       <h2>VIDEO</h2>
       <div class="content-video">
-        <!-- 使用包装容器提供覆盖播放按钮 -->
+        <!-- 使用包装容器提供覆盖播放按钮（仅最后这个允许开声和控制条） -->
         <div class="video-wrap">
-          <video id="main-video" playsinline loop preload="metadata">
+          <video id="main-video" playsinline loop preload="metadata" muted>
             <source src="Videos/ICRA26_3588_3m45s.mp4" type="video/mp4"/>
+            Your browser does not support HTML5 video.
           </video>
           <div id="main-overlay" class="play-overlay">
             <div class="play-btn" title="Play with sound"></div>
@@ -257,23 +259,8 @@
     </footer>
   </div> <!-- /.page-zoom -->
 
-  <!-- 交互脚本：点击开声/显示控制条，并支持覆盖按钮 -->
+  <!-- 仅保留主视频的交互脚本：点击后取消静音并显示控制条 -->
   <script>
-    // 1) 所有标记 data-click-sound 的视频：点击开声/切换播放
-    document.querySelectorAll('video[data-click-sound]').forEach(function(v){
-      v.addEventListener('click', function(){
-        if (v.muted) {
-          v.muted = false;                 // 取消静音（用户手势触发）
-          v.setAttribute('controls','');   // 显示控制条
-          v.play && v.play().catch(()=>{});
-        } else {
-          if (v.paused) v.play && v.play().catch(()=>{});
-          else v.pause();
-        }
-      }, {passive:true});
-    });
-
-    // 2) 主视频覆盖按钮：点击后取消静音并播放，同时淡出覆盖层
     (function(){
       var mainVideo = document.getElementById('main-video');
       var overlay   = document.getElementById('main-overlay');
@@ -287,12 +274,9 @@
       }
 
       overlay.addEventListener('click', startWithSound, {passive:true});
-
       // 若用户直接点视频本身，也启声并隐藏覆盖层
       mainVideo.addEventListener('click', function(){
-        if (mainVideo.muted) {
-          startWithSound();
-        }
+        if (mainVideo.muted) startWithSound();
       }, {passive:true});
     })();
   </script>
