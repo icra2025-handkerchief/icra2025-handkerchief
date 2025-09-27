@@ -19,14 +19,15 @@
   </script>
 
   <style>
-    html, body { margin:0; padding:0; background:#000; color:#fff; overflow-x:hidden; }
+    :root, html, body { overflow-x:hidden; }
+    html, body { margin:0; padding:0; background:#000; color:#fff; }
     body {
       font-family:"Google Sans","Noto Sans",sans-serif;
       line-height:2.0;
       /* ⚠️ 不要在 body 上缩放，避免全屏视频被放大溢出 */
     }
 
-    /* ✅ 新增：只放大正文与后续内容 */
+    /* ✅ 只放大正文与后续内容 */
     .page-zoom {
       transform: scale(1.25);           /* 125% 放大 */
       transform-origin: top center;     /* 从上中央放大，避免位移 */
@@ -34,12 +35,12 @@
       margin: 0 auto;                   /* 让视觉居中 */
     }
 
-    /* 顶部全宽视频（保持 100vw，不受缩放影响） */
-    .header { width:100vw; background:#000; }
+    /* 顶部全宽视频（用 100% 避免 100vw 带来的横向溢出） */
+    .header { width:100%; background:#000; }
     .header > video {
       display:block;
-      width:100vw; height:auto;
-      max-height:100vh;
+      width:100%; height:auto;
+      max-height:100svh;                /* 也可用 100vh */
       object-fit:contain;
       object-position:center center;
       background:#000;
@@ -114,6 +115,37 @@
 
     /* 鼠标指示 */
     video[data-click-sound] { cursor: pointer; }
+
+    /* ====== 轻量高亮样式 ====== */
+    .hl {
+      background: linear-gradient(transparent 60%, rgba(255, 223, 93, .45) 0);
+      font-weight: 600;
+      padding: 0 .05em;
+    }
+    .kpi {
+      font-weight: 700;
+      padding: .05em .4em;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      white-space: nowrap;
+    }
+    .callout {
+      border-left: 4px solid #ffd85d;
+      background: rgba(255, 216, 93, .08);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 14px 0 20px;
+    }
+    .badge {
+      display: inline-block;
+      padding: .05em .5em;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.06);
+      font-weight: 600;
+    }
+    code { background: rgba(255,255,255,.06); padding: .05em .35em; border-radius: 6px; }
   </style>
 </head>
 
@@ -134,7 +166,7 @@
         Spinning flexible objects, exemplified by traditional Chinese handkerchief performances, demands periodic steady-state motions under nonlinear dynamics with frictional contacts and boundary constraints. 
         We design a tendon-driven dexterous wrist based on a parallel anti-parallelogram structure, achieving $90^\circ$ omnidirectional rotation with low inertia and decoupled roll–pitch sensing, and implement a hierarchical control scheme. 
         A particle-spring model provides a control-oriented abstraction to analyze initiation strategies. 
-        Hardware experiments validate this framework, achieving $\sim99\%$ unfolding ratio and fingertip tracking error of $\mathrm{RMSE}=2.88\,\text{mm}$. 
+        Hardware experiments validate this framework, achieving <span class="kpi">~99%</span> unfolding ratio and fingertip tracking error of <span class="kpi">RMSE = 2.88&nbsp;mm</span>. 
         These results show that combining task-tailored wrist hardware with control-oriented modeling enables robust rest-to-steady-state transitions and precise periodic manipulation of flexible fabrics.
       </p>
       <div class="content-video">
@@ -186,15 +218,22 @@
         In the handkerchief modeling and initiation strategy study, we carried out dedicated simulations. 
         The handkerchief is represented by a particle–spring model under frictional contacts and boundary constraints. 
         The evaluation is based on the unfolding area and Poincaré analysis. 
-        Here, a Floquet multiplier is computed from the Poincaré map: values less than one imply stability, while greater than one indicate instability. 
+        Here, a Floquet multiplier is computed from the Poincaré map: <em class="hl">values less than one imply stability</em>, while <em class="hl">greater than one indicate instability</em>. 
         (For derivation details, see the paper’s Nonlinear Analysis section.)
       </p>
       
       <ul>
-        <li><b>Acceleration-based strategy:</b> linear increase of radius and speed, Floquet multiplier = 0.80. This strategy achieves full and stable unfolding within a few seconds.</li>
-        <li><b>Directional-throwing strategy:</b> elliptic expansion with fixed speed, Floquet multiplier = 4.29. The dynamics diverge and the handkerchief fails to stabilize.</li>
-        <li><b>Periodic-energy injection strategy:</b> constant radius with oscillating speed, Floquet multiplier = 11.77. Unfolding cannot be completed and the motion remains unstable.</li>
+        <li><span class="badge">Acceleration-based</span>: linear increase of radius and speed, Floquet multiplier = <span class="kpi">0.80</span>. This strategy achieves <span class="kpi">full &amp; stable unfolding</span> within a few seconds.</li>
+        <li><span class="badge">Directional-throwing</span>: elliptic expansion with fixed speed, Floquet multiplier = <span class="kpi">4.29</span>. The dynamics diverge and the handkerchief fails to stabilize.</li>
+        <li><span class="badge">Periodic-energy injection</span>: constant radius with oscillating speed, Floquet multiplier = <span class="kpi">11.77</span>. Unfolding cannot be completed and the motion remains unstable.</li>
       </ul>
+
+      <div class="callout">
+        <strong>Key takeaway:</strong>
+        <span class="hl">Acceleration-based ramp</span> is Poincaré-stable 
+        (<span class="kpi">max Floquet ≈ 0.80 &lt; 1</span>) and achieves 
+        <span class="kpi">~99%</span> unfolding with millimeter-level tracking accuracy.
+      </div>
       
       <p>
         Among these, only the acceleration-based strategy proves robust and reliable, consistent with experimental observations.
@@ -205,14 +244,12 @@
         </video>
       </div>
 
-
-
-
       <h2>EXPERIMENTS</h2>
       <h3>Initiation strategies</h3>
       <p>
         We evaluate acceleration-based, directional-throw, and oscillatory strategies. 
-        Experiments show that the acceleration-based strategy rapidly establishes steady spinning within $\sim3$s, achieving $\sim99\%$ unfolding. 
+        Experiments show that the acceleration-based strategy rapidly establishes steady spinning within 
+        <span class="kpi">~3 s</span>, achieving <span class="kpi">~99%</span> unfolding. 
         Other strategies result in incomplete or unstable unfolding, consistent with Poincaré analysis.
       </p>
       <div class="content-video">
@@ -224,7 +261,8 @@
       <h3>Variable-axis spinning</h3>
       <p>
         Under commanded reorientation ($\dot{\alpha}=0.1\,\text{rad/s}$, $\alpha=12^\circ$), 
-        the Cartesian trajectory and $x/y$ profiles show precise tracking with fingertip $\mathrm{RMSE}=2.88\,\text{mm}$ and $R^2=0.9898$, 
+        the Cartesian trajectory and $x/y$ profiles show precise tracking with fingertip 
+        <span class="kpi">RMSE = 2.88&nbsp;mm</span> and <span class="kpi">R² = 0.9898</span>, 
         validating the hierarchical controller for coordinated axis reorientation and stable spinning.
       </p>
       <div class="content-video">
@@ -300,7 +338,3 @@
   </script>
 </body>
 </html>
-
-
-
-
