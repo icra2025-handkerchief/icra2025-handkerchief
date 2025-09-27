@@ -21,34 +21,14 @@
   <style>
     :root, html, body { overflow-x:hidden; }
     html, body { margin:0; padding:0; background:#000; color:#fff; }
-    body {
-      font-family:"Google Sans","Noto Sans",sans-serif;
-      line-height:2.0;
-      -webkit-overflow-scrolling: touch; /* iOS 惯性滚动 */
-    }
+    body { font-family:"Google Sans","Noto Sans",sans-serif; line-height:2.0; }
 
-    /* ✅ 只放大正文与后续内容（桌面） */
-    .page-zoom {
-      transform: scale(1.25);           /* 125% 放大 */
-      transform-origin: top center;     /* 从上中央放大，避免位移 */
-      width: calc(100% / 1.25);         /* 宽度补偿，防止放大后超出屏幕 */
-      margin: 0 auto;                   /* 让视觉居中 */
-    }
-
-    /* 📱 修复：小屏禁用缩放，避免因 transform 造成“滚动被截断” */
-    @media (max-width: 900px) {
-      .page-zoom {
-        transform: none !important;
-        width: 100% !important;
-      }
-    }
-
-    /* 顶部全宽视频（用 100% 避免 100vw 带来的横向溢出） */
+    /* 顶部全宽视频 */
     .header { width:100%; background:#000; }
     .header > video {
       display:block;
       width:100%; height:auto;
-      max-height:100svh;          /* 也可用 100vh */
+      max-height:100svh; /* 也可用 100vh */
       object-fit:contain;
       object-position:center center;
       background:#000;
@@ -69,7 +49,7 @@
     }
     /* 缩小指定图片：保持响应式并居中 */
     .img-small {
-      width:min(100%, 720px);   /* 想更小可改成 600 */
+      width:min(100%, 720px);
       margin-left:auto;
       margin-right:auto;
     }
@@ -84,7 +64,7 @@
     a.bold { font-weight:700; color:#fff; text-decoration:none; }
     a.bold:hover { text-decoration:underline; }
 
-    /* —— 主视频覆盖播放按钮样式 —— */
+    /* —— 主视频覆盖播放按钮 —— */
     .video-wrap {
       position: relative;
       display: inline-block;
@@ -124,7 +104,7 @@
 </head>
 
 <body>
-  <!-- 顶部全宽视频：不缩放 -->
+  <!-- 顶部全宽视频 -->
   <div class="header" id="top">
     <video playsinline autoplay loop muted preload="metadata">
       <source src="Videos/title.mp4" type="video/mp4"/>
@@ -132,142 +112,140 @@
     </video>
   </div>
 
-  <!-- ✅ 从这里开始整体 125% 缩放（桌面）；手机已在 media query 里关闭缩放 -->
-  <div class="page-zoom">
-    <div class="content">
-      <h2>ABSTRACT</h2>
-      <p>
-        Spinning flexible objects, exemplified by traditional Chinese handkerchief performances, demands periodic steady-state motions under nonlinear dynamics with frictional contacts and boundary constraints. 
-        We design a tendon-driven dexterous wrist based on a parallel anti-parallelogram structure, achieving <strong>$90^\circ$</strong> omnidirectional rotation with low inertia and decoupled roll–pitch sensing, and implement a hierarchical control scheme. 
-        A particle-spring model provides a control-oriented abstraction to analyze initiation strategies. 
-        Hardware experiments validate this framework, achieving <strong>$\sim99\%$</strong> unfolding ratio and fingertip tracking error of <strong>$\mathrm{RMSE}=2.88\,\text{mm}$</strong>. 
-        These results show that combining task-tailored wrist hardware with control-oriented modeling enables robust rest-to-steady-state transitions and precise periodic manipulation of flexible fabrics.
-      </p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
-          <source src="Videos/compare.mp4" type="video/mp4"/>
+  <!-- 内容开始 -->
+  <div class="content">
+    <h2>ABSTRACT</h2>
+    <p>
+      Spinning flexible objects, exemplified by traditional Chinese handkerchief performances, demands periodic steady-state motions under nonlinear dynamics with frictional contacts and boundary constraints. 
+      We design a tendon-driven dexterous wrist based on a parallel anti-parallelogram structure, achieving <strong>$90^\circ$</strong> omnidirectional rotation with low inertia and decoupled roll–pitch sensing, and implement a hierarchical control scheme. 
+      A particle-spring model provides a control-oriented abstraction to analyze initiation strategies. 
+      Hardware experiments validate this framework, achieving <strong>$\sim99\%$</strong> unfolding ratio and fingertip tracking error of <strong>$\mathrm{RMSE}=2.88\,\text{mm}$</strong>. 
+      These results show that combining task-tailored wrist hardware with control-oriented modeling enables robust rest-to-steady-state transitions and precise periodic manipulation of flexible fabrics.
+    </p>
+    <div class="content-video">
+      <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
+        <source src="Videos/compare.mp4" type="video/mp4"/>
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+
+    <h2>SYSTEMATIC PERSPECTIVE OF HANDKERCHIEF SPINNING TASK</h2>
+    <p>To address these challenges, we propose the integrated framework:</p>
+    <ul>
+      <li>Design a parallel anti-parallelogram tendon-driven wrist to provide the high-dynamic actuation required for spinning.</li>
+      <li>Develop a control-oriented particle-spring model to abstract the behavior of the handkerchief in a form suitable for strategy design.</li>
+      <li>Combine these with a hierarchical controller and tailored initiation strategies to manage the transition from rest into stable periodic motion.</li>
+    </ul>
+    <p>Together, this framework enables precise and robust handkerchief spinning.</p>
+    <img class="figure-img" src="Figures/system_perspective.png" alt="System perspective">
+
+    <h2>DETAILED METHOD</h2>
+
+    <h3>Intuitive dexterous wrist</h3>
+    <p>
+      We first analyzed the mobility of the human wrist. In the ulnar-radial direction, the human wrist ranges from about <strong>$-45^\circ$</strong> to <strong>$+25^\circ$</strong>. In flexion and extension, the range is <strong>$-75^\circ$</strong> to <strong>$+75^\circ$</strong>.  
+      Based on these observations, we developed an intuitive dexterous wrist that achieves omnidirectional <strong>$90^\circ$</strong> rotation without singularities. The intuitive dexterous wrist extends these ranges by approximately <strong>100%</strong> in ulnar deviation, <strong>260%</strong> in radial deviation, and about <strong>20%</strong> in flexion-extension.
+    </p>
+    <img class="figure-img" src="Figures/wristcompare.png" alt="Wrist comparison">
+
+    <h3>Parallel anti-parallelogram tendon-driven wrist and modeling</h3>
+    <p>
+      Inspired by human wrist anatomy, we design a compact <strong>2-DOF</strong> tendon-driven joint with two orthogonal anti-parallelogram linkages. 
+      The design reduces footprint and inertia by <strong>$\sim50\%$</strong>, preserves <strong>$90^\circ$</strong> omnidirectional rotation, and integrates decoupled encoders for precise roll-pitch sensing. 
+      Tendons are routed through guides to rear-mounted motors, minimizing distal inertia and enhancing dynamic responsiveness.  
+      The wrist is then modeled as a spherical rolling-contact joint. Its motion is described by the bending plane angle <strong>$\alpha$</strong> and the deflection angle <strong>$\beta$</strong>, which directly correspond to twisting and deflection in the handkerchief spinning task.
+    </p>
+    <!-- 缩小此图：添加 img-small 类 -->
+    <img class="figure-img img-small" src="Figures/designandmodel.png" alt="Design and model">
+
+    <h3>Hierarchical control</h3>
+    <p>
+      We implement a high–low level control framework: at high level, optimized kinematic strategies initiate and regulate spin; 
+      at low level, two tendon motors execute commands. During initiation, kinematic control ensures acceleration; 
+      once stable spinning emerges, direct periodic motor commands maintain motion with improved stability.
+    </p>
+    <!-- 缩小此图：添加 img-small 类 -->
+    <img class="figure-img img-small" src="Figures/control_scheme.png" alt="Control scheme">
+
+    <h3>Particle–spring model and initiation strategy</h3>
+    <p>
+      In the handkerchief modeling and initiation strategy study, we carried out dedicated simulations. 
+      The handkerchief is represented by a particle–spring model under frictional contacts and boundary constraints. 
+      The evaluation is based on the unfolding area and Poincaré analysis. 
+      Here, a Floquet multiplier is computed from the Poincaré map: <strong>values less than one imply stability</strong>, while <strong>values greater than one indicate instability</strong>. 
+      (For derivation details, see the paper’s Nonlinear Analysis section.)
+    </p>
+    
+    <ul>
+      <li><strong>Acceleration-based strategy:</strong> linear increase of radius and speed, Floquet multiplier = <strong>0.80</strong>. This strategy achieves <strong>full and stable unfolding</strong> within a few seconds.</li>
+      <li><strong>Directional-throwing strategy:</strong> elliptic expansion with fixed speed, Floquet multiplier = <strong>4.29</strong>. The dynamics diverge and the handkerchief fails to stabilize.</li>
+      <li><strong>Periodic-energy injection strategy:</strong> constant radius with oscillating speed, Floquet multiplier = <strong>11.77</strong>. Unfolding cannot be completed and the motion remains unstable.</li>
+    </ul>
+    
+    <p>
+      Among these, only the <strong>acceleration-based strategy</strong> proves robust and reliable, consistent with experimental observations.
+    </p>
+    <div class="content-video">
+      <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
+        <source src="Videos/handkerchiefmodel.mp4" type="video/mp4"/>
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+
+    <h2>EXPERIMENTS</h2>
+    <h3>Initiation strategies</h3>
+    <p>
+      We evaluate acceleration-based, directional-throw, and oscillatory strategies. 
+      Experiments show that the <strong>acceleration-based strategy</strong> rapidly establishes steady spinning within <strong>$\sim3$ s</strong>, achieving <strong>$\sim99\%$</strong> unfolding. 
+      Other strategies result in incomplete or unstable unfolding, consistent with Poincaré analysis.
+    </p>
+    <div class="content-video">
+      <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
+        <source src="Videos/Exp1.mp4" type="video/mp4"/>
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+
+    <h3>Variable-axis spinning</h3>
+    <p>
+      Under commanded reorientation (<strong>$\dot{\alpha}=0.1\,\text{rad/s}$</strong>, <strong>$\alpha=12^\circ$</strong>), 
+      the Cartesian trajectory and $x/y$ profiles show precise tracking with fingertip <strong>$\mathrm{RMSE}=2.88\,\text{mm}$</strong> and <strong>$R^2=0.9898$</strong>, 
+      validating the hierarchical controller for coordinated axis reorientation and stable spinning.
+    </p>
+    <div class="content-video">
+      <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
+        <source src="Videos/Exp2.mp4" type="video/mp4"/>
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+
+    <h2>CONCLUSION</h2>
+    <p>
+      We demonstrated that a parallel anti-parallelogram tendon-driven wrist, combined with hierarchical control and particle–spring modeling, 
+      enables robust and precise handkerchief spinning. The system achieves <strong>near-complete unfolding</strong> and <strong>millimeter-level accuracy</strong>. 
+      This framework provides a practical recipe for dynamic fabric manipulation, and future work will explore learning-based extensions for more complex skills and humanoid dual-arm coordination.
+    </p>
+
+    <h2>VIDEO</h2>
+    <div class="content-video">
+      <!-- 使用包装容器提供覆盖播放按钮（仅最后这个允许开声和控制条） -->
+      <div class="video-wrap">
+        <video id="main-video" playsinline loop preload="metadata" muted>
+          <source src="Videos/ICRA26_3588_3m45s.mp4" type="video/mp4"/>
           Your browser does not support HTML5 video.
         </video>
-      </div>
-
-      <h2>SYSTEMATIC PERSPECTIVE OF HANDKERCHIEF SPINNING TASK</h2>
-      <p>To address these challenges, we propose the integrated framework:</p>
-      <ul>
-        <li>Design a parallel anti-parallelogram tendon-driven wrist to provide the high-dynamic actuation required for spinning.</li>
-        <li>Develop a control-oriented particle-spring model to abstract the behavior of the handkerchief in a form suitable for strategy design.</li>
-        <li>Combine these with a hierarchical controller and tailored initiation strategies to manage the transition from rest into stable periodic motion.</li>
-      </ul>
-      <p>Together, this framework enables precise and robust handkerchief spinning.</p>
-      <img class="figure-img" src="Figures/system_perspective.png" alt="System perspective">
-
-      <h2>DETAILED METHOD</h2>
-
-      <h3>Intuitive dexterous wrist</h3>
-      <p>
-        We first analyzed the mobility of the human wrist. In the ulnar-radial direction, the human wrist ranges from about <strong>$-45^\circ$</strong> to <strong>$+25^\circ$</strong>. In flexion and extension, the range is <strong>$-75^\circ$</strong> to <strong>$+75^\circ$</strong>.  
-        Based on these observations, we developed an intuitive dexterous wrist that achieves omnidirectional <strong>$90^\circ$</strong> rotation without singularities. The intuitive dexterous wrist extends these ranges by approximately <strong>100%</strong> in ulnar deviation, <strong>260%</strong> in radial deviation, and about <strong>20%</strong> in flexion-extension.
-      </p>
-      <img class="figure-img" src="Figures/wristcompare.png" alt="Wrist comparison">
-
-      <h3>Parallel anti-parallelogram tendon-driven wrist and modeling</h3>
-      <p>
-        Inspired by human wrist anatomy, we design a compact <strong>2-DOF</strong> tendon-driven joint with two orthogonal anti-parallelogram linkages. 
-        The design reduces footprint and inertia by <strong>$\sim50\%$</strong>, preserves <strong>$90^\circ$</strong> omnidirectional rotation, and integrates decoupled encoders for precise roll-pitch sensing. 
-        Tendons are routed through guides to rear-mounted motors, minimizing distal inertia and enhancing dynamic responsiveness.  
-        The wrist is then modeled as a spherical rolling-contact joint. Its motion is described by the bending plane angle <strong>$\alpha$</strong> and the deflection angle <strong>$\beta$</strong>, which directly correspond to twisting and deflection in the handkerchief spinning task.
-      </p>
-      <!-- 缩小此图：添加 img-small 类 -->
-      <img class="figure-img img-small" src="Figures/designandmodel.png" alt="Design and model">
-
-      <h3>Hierarchical control</h3>
-      <p>
-        We implement a high–low level control framework: at high level, optimized kinematic strategies initiate and regulate spin; 
-        at low level, two tendon motors execute commands. During initiation, kinematic control ensures acceleration; 
-        once stable spinning emerges, direct periodic motor commands maintain motion with improved stability.
-      </p>
-      <!-- 缩小此图：添加 img-small 类 -->
-      <img class="figure-img img-small" src="Figures/control_scheme.png" alt="Control scheme">
-
-      <h3>Particle–spring model and initiation strategy</h3>
-      <p>
-        In the handkerchief modeling and initiation strategy study, we carried out dedicated simulations. 
-        The handkerchief is represented by a particle–spring model under frictional contacts and boundary constraints. 
-        The evaluation is based on the unfolding area and Poincaré analysis. 
-        Here, a Floquet multiplier is computed from the Poincaré map: <strong>values less than one imply stability</strong>, while <strong>values greater than one indicate instability</strong>. 
-        (For derivation details, see the paper’s Nonlinear Analysis section.)
-      </p>
-      
-      <ul>
-        <li><strong>Acceleration-based strategy:</strong> linear increase of radius and speed, Floquet multiplier = <strong>0.80</strong>. This strategy achieves <strong>full and stable unfolding</strong> within a few seconds.</li>
-        <li><strong>Directional-throwing strategy:</strong> elliptic expansion with fixed speed, Floquet multiplier = <strong>4.29</strong>. The dynamics diverge and the handkerchief fails to stabilize.</li>
-        <li><strong>Periodic-energy injection strategy:</strong> constant radius with oscillating speed, Floquet multiplier = <strong>11.77</strong>. Unfolding cannot be completed and the motion remains unstable.</li>
-      </ul>
-      
-      <p>
-        Among these, only the <strong>acceleration-based strategy</strong> proves robust and reliable, consistent with experimental observations.
-      </p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
-          <source src="Videos/handkerchiefmodel.mp4" type="video/mp4"/>
-          Your browser does not support HTML5 video.
-        </video>
-      </div>
-
-      <h2>EXPERIMENTS</h2>
-      <h3>Initiation strategies</h3>
-      <p>
-        We evaluate acceleration-based, directional-throw, and oscillatory strategies. 
-        Experiments show that the <strong>acceleration-based strategy</strong> rapidly establishes steady spinning within <strong>$\sim3$ s</strong>, achieving <strong>$\sim99\%$</strong> unfolding. 
-        Other strategies result in incomplete or unstable unfolding, consistent with Poincaré analysis.
-      </p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
-          <source src="Videos/Exp1.mp4" type="video/mp4"/>
-          Your browser does not support HTML5 video.
-        </video>
-      </div>
-
-      <h3>Variable-axis spinning</h3>
-      <p>
-        Under commanded reorientation (<strong>$\dot{\alpha}=0.1\,\text{rad/s}$</strong>, <strong>$\alpha=12^\circ$</strong>), 
-        the Cartesian trajectory and $x/y$ profiles show precise tracking with fingertip <strong>$\mathrm{RMSE}=2.88\,\text{mm}$</strong> and <strong>$R^2=0.9898$</strong>, 
-        validating the hierarchical controller for coordinated axis reorientation and stable spinning.
-      </p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted preload="metadata" disablepictureinpicture>
-          <source src="Videos/Exp2.mp4" type="video/mp4"/>
-          Your browser does not support HTML5 video.
-        </video>
-      </div>
-
-      <h2>CONCLUSION</h2>
-      <p>
-        We demonstrated that a parallel anti-parallelogram tendon-driven wrist, combined with hierarchical control and particle–spring modeling, 
-        enables robust and precise handkerchief spinning. The system achieves <strong>near-complete unfolding</strong> and <strong>millimeter-level accuracy</strong>. 
-        This framework provides a practical recipe for dynamic fabric manipulation, and future work will explore learning-based extensions for more complex skills and humanoid dual-arm coordination.
-      </p>
-
-      <h2>VIDEO</h2>
-      <div class="content-video">
-        <!-- 使用包装容器提供覆盖播放按钮（仅最后这个允许开声和控制条） -->
-        <div class="video-wrap">
-          <video id="main-video" playsinline loop preload="metadata" muted>
-            <source src="Videos/ICRA26_3588_3m45s.mp4" type="video/mp4"/>
-            Your browser does not support HTML5 video.
-          </video>
-          <div id="main-overlay" class="play-overlay">
-            <div class="play-btn" title="Play with sound"></div>
-          </div>
+        <div id="main-overlay" class="play-overlay">
+          <div class="play-btn" title="Play with sound"></div>
         </div>
       </div>
     </div>
+  </div>
 
-    <footer>
-      <a href="#top" class="bold">To top &UpArrow;</a>
-    </footer>
-  </div> <!-- /.page-zoom -->
+  <footer>
+    <a href="#top" class="bold">To top &UpArrow;</a>
+  </footer>
 
-  <!-- 仅保留主视频的交互脚本：点击后取消静音并显示控制条 -->
+  <!-- 仅主视频交互：点击后取消静音并显示控制条 -->
   <script>
     (function(){
       var mainVideo = document.getElementById('main-video');
@@ -288,22 +266,5 @@
       }, {passive:true});
     })();
   </script>
-
-  <!-- 可选方案：如果你坚持手机也要 125% 视觉放大，可启用下面这段脚本“补偿滚动高度”
-  <script>
-    (function(){
-      var SCALE = 1.25;
-      var z = document.querySelector('.page-zoom');
-      if (!z) return;
-      function fixHeight(){
-        z.style.minHeight = Math.ceil(z.scrollHeight * SCALE) + 'px';
-      }
-      window.addEventListener('load', fixHeight);
-      window.addEventListener('resize', fixHeight);
-      window.addEventListener('orientationchange', fixHeight);
-      // new ResizeObserver(fixHeight).observe(z); // 若需要更实时
-    })();
-  </script>
-  -->
 </body>
 </html>
