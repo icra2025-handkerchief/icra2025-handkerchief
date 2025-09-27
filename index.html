@@ -24,15 +24,23 @@
     body {
       font-family:"Google Sans","Noto Sans",sans-serif;
       line-height:2.0;
-      /* ⚠️ 不要在 body 上缩放，避免全屏视频被放大溢出 */
+      -webkit-overflow-scrolling: touch; /* iOS 惯性滚动 */
     }
 
-    /* ✅ 只放大正文与后续内容 */
+    /* ✅ 只放大正文与后续内容（桌面） */
     .page-zoom {
       transform: scale(1.25);           /* 125% 放大 */
       transform-origin: top center;     /* 从上中央放大，避免位移 */
       width: calc(100% / 1.25);         /* 宽度补偿，防止放大后超出屏幕 */
       margin: 0 auto;                   /* 让视觉居中 */
+    }
+
+    /* 📱 修复：小屏禁用缩放，避免因 transform 造成“滚动被截断” */
+    @media (max-width: 900px) {
+      .page-zoom {
+        transform: none !important;
+        width: 100% !important;
+      }
     }
 
     /* 顶部全宽视频（用 100% 避免 100vw 带来的横向溢出） */
@@ -124,7 +132,7 @@
     </video>
   </div>
 
-  <!-- ✅ 从这里开始整体 125% 缩放 -->
+  <!-- ✅ 从这里开始整体 125% 缩放（桌面）；手机已在 media query 里关闭缩放 -->
   <div class="page-zoom">
     <div class="content">
       <h2>ABSTRACT</h2>
@@ -280,5 +288,22 @@
       }, {passive:true});
     })();
   </script>
+
+  <!-- 可选方案：如果你坚持手机也要 125% 视觉放大，可启用下面这段脚本“补偿滚动高度”
+  <script>
+    (function(){
+      var SCALE = 1.25;
+      var z = document.querySelector('.page-zoom');
+      if (!z) return;
+      function fixHeight(){
+        z.style.minHeight = Math.ceil(z.scrollHeight * SCALE) + 'px';
+      }
+      window.addEventListener('load', fixHeight);
+      window.addEventListener('resize', fixHeight);
+      window.addEventListener('orientationchange', fixHeight);
+      // new ResizeObserver(fixHeight).observe(z); // 若需要更实时
+    })();
+  </script>
+  -->
 </body>
 </html>
