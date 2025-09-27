@@ -19,8 +19,15 @@
   </script>
 
   <style>
-    html, body { margin:0; padding:0; background:#000; color:#fff; overflow-x:hidden; }
-    body { font-family:"Google Sans","Noto Sans",sans-serif; line-height:2.0; }
+      html, body { margin:0; padding:0; background:#000; color:#fff; overflow-x:hidden; }
+      body {
+        font-family:"Google Sans","Noto Sans",sans-serif;
+        line-height:2.0;
+      
+        /* ✅ 整体缩放125% */
+        transform: scale(1.25);
+        transform-origin: top center;
+      }
 
     /* 顶部全宽视频 */
     .header { width:100vw; background:#000; }
@@ -284,3 +291,4 @@
   </script>
 </body>
 </html>
+
