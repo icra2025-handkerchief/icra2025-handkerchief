@@ -185,22 +185,42 @@
       <p>
         In the handkerchief modeling and initiation strategy study, we carried out dedicated simulations. 
         The handkerchief is represented by a particle–spring model under frictional contacts and boundary constraints. 
-        The evaluation is based on the unfolding area and Poincaré analysis. 
-        In particular, the Floquet multiplier provides a quantitative stability indicator: values less than one imply stability, while values greater than one indicate instability.
+        The evaluation is based on the unfolding area and Poincaré analysis.
+      </p>
+      
+      <!-- NEW: Poincaré & Floquet sketch -->
+      <h4 style="margin-top:12px">Poincaré analysis &amp; Floquet multiplier (sketch)</h4>
+      <p>
+        We view one spin period <code>T</code> as the stroboscopic sampling interval and define the Poincaré map
+        \(P:\;X(t_0)\mapsto X(t_0+T)\) on the system state \(X\).
+        A periodic orbit corresponds to a fixed point \(X^\*\) with \(P(X^\*)=X^\*\).
+        Linearizing the dynamics along the last period yields the single-period (monodromy) matrix
+        \(\Phi(T)=\frac{\partial X(t_0+T)}{\partial X(t_0)}\).
+        Its eigenvalues \(\{\lambda_i\}\) are the Floquet multipliers. The stability criterion is:
+        \(|\lambda_i|&lt;1\ \forall i\) &rArr; the orbit is asymptotically stable in the Poincaré sense.
+      </p>
+      <p>
+        In practice, we compute \(\Phi(T)\) numerically (finite-difference/variational integration) over the final stabilized period of the simulation:
+        (i) simulate to steady spin; (ii) sample the state once per period; (iii) linearize around the fixed point to obtain \(\Phi(T)\); (iv) check \(\max_i|\lambda_i|\).
+        Under the acceleration-based ramp, \(\max|\lambda_i|\approx 0.80&lt;1\) (stable); for the two baselines, \(\max|\lambda_i|\approx 4.29\) and \(11.77\) (unstable).
+      </p>
+      
+      <ul>
+        <li><b>Acceleration-based strategy:</b> linear increase of radius and speed, Floquet multiplier \(\approx 0.80\).
+            Achieves full and stable unfolding within a few seconds.</li>
+        <li><b>Directional-throwing strategy:</b> elliptic expansion with fixed speed, Floquet multiplier \(\approx 4.29\).
+            Dynamics diverge; the handkerchief fails to stabilize.</li>
+        <li><b>Periodic-energy injection strategy:</b> constant radius with oscillating speed, Floquet multiplier \(\approx 11.77\).
+            Unfolding cannot be completed; motion remains unstable.</li>
+      </ul>
+      
+      <p style="margin-top:8px">
+        Among these, only the acceleration-based strategy proves robust and reliable, consistent with experimental observations.
+        <br>
+        <em>For the full derivation (Poincaré map construction, variational equations, and numerical evaluation of \(\Phi(T)\)), please see the paper’s
+        <b>Nonlinear Analysis</b> section.</em>
       </p>
 
-      <ul>
-        <li><b>Acceleration-based strategy:</b> linear increase of radius and speed, Floquet multiplier = 0.80. This strategy achieves full and stable unfolding within a few seconds.</li>
-        <li><b>Directional-throwing strategy:</b> elliptic expansion with fixed speed, Floquet multiplier = 4.29. The dynamics diverge and the handkerchief fails to stabilize.</li>
-        <li><b>Periodic-energy injection strategy:</b> constant radius with oscillating speed, Floquet multiplier = 11.77. Unfolding cannot be completed and the motion remains unstable.</li>
-      </ul>
-
-      <p>Among these, only the acceleration-based strategy proves robust and reliable, consistent with experimental observations.</p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
-          <source src="Videos/handkerchiefmodel.mp4" type="video/mp4"/>
-        </video>
-      </div>
 
       <h2>EXPERIMENTS</h2>
       <h3>Initiation strategies</h3>
@@ -290,3 +310,4 @@
   </script>
 </body>
 </html>
+
