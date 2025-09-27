@@ -12,7 +12,7 @@
 
   <!-- MathJax -->
   <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}}); 
   </script>
   <script type="text/javascript" async
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -21,50 +21,31 @@
   <style>
     :root, html, body { overflow-x:hidden; }
     html, body { margin:0; padding:0; background:#000; color:#fff; }
-    body {
-      font-family:"Google Sans","Noto Sans",sans-serif;
-      line-height:2.0;
-      /* ⚠️ 不要在 body 上缩放，避免全屏视频被放大溢出 */
-    }
+    body { font-family:"Google Sans","Noto Sans",sans-serif; line-height:2.0; }
 
-    /* ✅ 只放大正文与后续内容 */
     .page-zoom {
-      transform: scale(1.25);           /* 125% 放大 */
-      transform-origin: top center;     /* 从上中央放大，避免位移 */
-      width: calc(100% / 1.25);         /* 宽度补偿，防止放大后超出屏幕 */
-      margin: 0 auto;                   /* 让视觉居中 */
+      transform: scale(1.25);
+      transform-origin: top center;
+      width: calc(100% / 1.25);
+      margin: 0 auto;
     }
 
-    /* 顶部全宽视频（用 100% 避免 100vw 带来的横向溢出） */
     .header { width:100%; background:#000; }
     .header > video {
-      display:block;
-      width:100%; height:auto;
-      max-height:100svh;                /* 也可用 100vh */
-      object-fit:contain;
-      object-position:center center;
-      background:#000;
+      display:block; width:100%; height:auto;
+      max-height:100svh; object-fit:contain; background:#000;
     }
 
     .content { max-width:1100px; margin:0 auto; padding:40px 20px; }
     h2 { margin: 32px 0 12px; font-size:28px; }
     h3 { margin: 24px 0 8px; font-size:20px; }
 
-    /* 图片样式 */
     .figure-img {
-      width:100%;
-      height:auto;
-      display:block;
-      border-radius:14px;
-      box-shadow:0 8px 24px rgba(0,0,0,.35);
+      width:100%; height:auto; display:block;
+      border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,.35);
       margin:16px 0 28px;
     }
-    /* 缩小指定图片：保持响应式并居中 */
-    .img-small {
-      width:min(100%, 720px);   /* 想更小可改成 600 */
-      margin-left:auto;
-      margin-right:auto;
-    }
+    .img-small { width:min(100%, 720px); margin:0 auto; }
 
     .content-video { display:flex; justify-content:center; margin:16px 0 28px; }
     .content-video video {
@@ -76,25 +57,18 @@
     a.bold { font-weight:700; color:#fff; text-decoration:none; }
     a.bold:hover { text-decoration:underline; }
 
-    /* —— 主视频覆盖播放按钮样式 —— */
     .video-wrap {
-      position: relative;
-      display: inline-block;
+      position: relative; display: inline-block;
       width:min(100%,1000px);
-      border-radius:14px;
-      box-shadow:0 8px 24px rgba(0,0,0,.35);
+      border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,.35);
       overflow: hidden;
     }
     .video-wrap video { width:100%; height:auto; display:block; }
     .play-overlay {
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      position:absolute; inset:0; display:flex;
+      align-items:center; justify-content:center;
       background:linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45));
-      cursor:pointer;
-      transition: opacity .25s ease;
+      cursor:pointer; transition: opacity .25s ease;
     }
     .play-overlay.hidden { opacity:0; pointer-events:none; }
     .play-btn {
@@ -104,237 +78,92 @@
       box-shadow:0 6px 20px rgba(0,0,0,.45);
     }
     .play-btn:after {
-      content:"";
-      display:block;
-      margin-left:4px;
-      width:0; height:0;
+      content:""; margin-left:4px; width:0; height:0;
       border-left:26px solid #000;
       border-top:16px solid transparent;
       border-bottom:16px solid transparent;
     }
 
-    /* 鼠标指示 */
     video[data-click-sound] { cursor: pointer; }
-
-    /* ====== 轻量高亮样式 ====== */
-    .hl {
-      background: linear-gradient(transparent 60%, rgba(255, 223, 93, .45) 0);
-      font-weight: 600;
-      padding: 0 .05em;
-    }
-    .kpi {
-      font-weight: 700;
-      padding: .05em .4em;
-      border: 1px solid rgba(255,255,255,.35);
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      white-space: nowrap;
-    }
-    .callout {
-      border-left: 4px solid #ffd85d;
-      background: rgba(255, 216, 93, .08);
-      padding: 12px 14px;
-      border-radius: 10px;
-      margin: 14px 0 20px;
-    }
-    .badge {
-      display: inline-block;
-      padding: .05em .5em;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.28);
-      background: rgba(255,255,255,.06);
-      font-weight: 600;
-    }
-    code { background: rgba(255,255,255,.06); padding: .05em .35em; border-radius: 6px; }
   </style>
 </head>
 
 <body>
-  <!-- 顶部全宽视频：不缩放 -->
   <div class="header" id="top">
     <video playsinline autoplay loop muted preload="metadata">
       <source src="Videos/title.mp4" type="video/mp4"/>
-      Your browser does not support HTML5 video.
     </video>
   </div>
 
-  <!-- ✅ 从这里开始整体 125% 缩放 -->
   <div class="page-zoom">
     <div class="content">
       <h2>ABSTRACT</h2>
       <p>
         Spinning flexible objects, exemplified by traditional Chinese handkerchief performances, demands periodic steady-state motions under nonlinear dynamics with frictional contacts and boundary constraints. 
-        We design a tendon-driven dexterous wrist based on a parallel anti-parallelogram structure, achieving $90^\circ$ omnidirectional rotation with low inertia and decoupled roll–pitch sensing, and implement a hierarchical control scheme. 
+        We design a tendon-driven dexterous wrist based on a parallel anti-parallelogram structure, achieving <strong>90°</strong> omnidirectional rotation with low inertia and decoupled roll–pitch sensing, and implement a hierarchical control scheme. 
         A particle-spring model provides a control-oriented abstraction to analyze initiation strategies. 
-        Hardware experiments validate this framework, achieving <span class="kpi">~99%</span> unfolding ratio and fingertip tracking error of <span class="kpi">RMSE = 2.88&nbsp;mm</span>. 
+        Hardware experiments validate this framework, achieving <strong>~99%</strong> unfolding ratio and fingertip tracking error of <strong>RMSE = 2.88&nbsp;mm</strong>. 
         These results show that combining task-tailored wrist hardware with control-oriented modeling enables robust rest-to-steady-state transitions and precise periodic manipulation of flexible fabrics.
       </p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
-          <source src="Videos/compare.mp4" type="video/mp4"/>
-        </video>
-      </div>
 
       <h2>SYSTEMATIC PERSPECTIVE OF HANDKERCHIEF SPINNING TASK</h2>
       <p>To address these challenges, we propose the integrated framework:</p>
       <ul>
-        <li>Design a parallel anti-parallelogram tendon-driven wrist to provide the high-dynamic actuation required for spinning.</li>
-        <li>Develop a control-oriented particle-spring model to abstract the behavior of the handkerchief in a form suitable for strategy design.</li>
-        <li>Combine these with a hierarchical controller and tailored initiation strategies to manage the transition from rest into stable periodic motion.</li>
+        <li><strong>Design</strong> a parallel anti-parallelogram tendon-driven wrist to provide the high-dynamic actuation required for spinning.</li>
+        <li><strong>Develop</strong> a control-oriented particle-spring model to abstract the behavior of the handkerchief in a form suitable for strategy design.</li>
+        <li><strong>Combine</strong> these with a hierarchical controller and tailored initiation strategies to manage the transition from rest into stable periodic motion.</li>
       </ul>
       <p>Together, this framework enables precise and robust handkerchief spinning.</p>
-      <img class="figure-img" src="Figures/system_perspective.png" alt="System perspective">
 
       <h2>DETAILED METHOD</h2>
 
       <h3>Intuitive dexterous wrist</h3>
       <p>
-        We first analyzed the mobility of the human wrist. In the ulnar-radial direction, the human wrist ranges from about $-45^\circ$ to $+25^\circ$. In flexion and extension, the range is $-75^\circ$ to $+75^\circ$.  
-        Based on these observations, we developed an intuitive dexterous wrist that achieves omnidirectional $90^\circ$ rotation without singularities. The intuitive dexterous wrist extends these ranges by approximately 100% in ulnar deviation, 260% in radial deviation, and about 20% in flexion-extension.
+        We first analyzed the mobility of the human wrist. In the ulnar-radial direction, the human wrist ranges from about <strong>-45°</strong> to <strong>+25°</strong>. In flexion and extension, the range is <strong>-75°</strong> to <strong>+75°</strong>.  
+        Based on these observations, we developed an intuitive dexterous wrist that achieves omnidirectional <strong>90°</strong> rotation without singularities. The intuitive dexterous wrist extends these ranges by approximately <strong>100%</strong> in ulnar deviation, <strong>260%</strong> in radial deviation, and about <strong>20%</strong> in flexion-extension.
       </p>
-      <img class="figure-img" src="Figures/wristcompare.png" alt="Wrist comparison">
 
       <h3>Parallel anti-parallelogram tendon-driven wrist and modeling</h3>
       <p>
-        Inspired by human wrist anatomy, we design a compact 2-DOF tendon-driven joint with two orthogonal anti-parallelogram linkages. 
-        The design reduces footprint and inertia by $\sim50\%$, preserves $90^\circ$ omnidirectional rotation, and integrates decoupled encoders for precise roll-pitch sensing. 
+        Inspired by human wrist anatomy, we design a compact <strong>2-DOF</strong> tendon-driven joint with two orthogonal anti-parallelogram linkages. 
+        The design reduces footprint and inertia by <strong>~50%</strong>, preserves <strong>90°</strong> omnidirectional rotation, and integrates decoupled encoders for precise roll-pitch sensing. 
         Tendons are routed through guides to rear-mounted motors, minimizing distal inertia and enhancing dynamic responsiveness.  
-        The wrist is then modeled as a spherical rolling-contact joint. Its motion is described by the bending plane angle $\alpha$ and the deflection angle $\beta$, which directly correspond to twisting and deflection in the handkerchief spinning task.
+        The wrist is then modeled as a spherical rolling-contact joint. Its motion is described by the bending plane angle <strong>α</strong> and the deflection angle <strong>β</strong>.
       </p>
-      <!-- 缩小此图：添加 img-small 类 -->
-      <img class="figure-img img-small" src="Figures/designandmodel.png" alt="Design and model">
-
-      <h3>Hierarchical control</h3>
-      <p>
-        We implement a high–low level control framework: at high level, optimized kinematic strategies initiate and regulate spin; 
-        at low level, two tendon motors execute commands. During initiation, kinematic control ensures acceleration; 
-        once stable spinning emerges, direct periodic motor commands maintain motion with improved stability.
-      </p>
-      <!-- 缩小此图：添加 img-small 类 -->
-      <img class="figure-img img-small" src="Figures/control_scheme.png" alt="Control scheme">
 
       <h3>Particle–spring model and initiation strategy</h3>
       <p>
-        In the handkerchief modeling and initiation strategy study, we carried out dedicated simulations. 
-        The handkerchief is represented by a particle–spring model under frictional contacts and boundary constraints. 
-        The evaluation is based on the unfolding area and Poincaré analysis. 
-        Here, a Floquet multiplier is computed from the Poincaré map: <em class="hl">values less than one imply stability</em>, while <em class="hl">greater than one indicate instability</em>. 
-        (For derivation details, see the paper’s Nonlinear Analysis section.)
+        The handkerchief is represented by a particle–spring model. The evaluation is based on the unfolding area and Poincaré analysis. 
+        Here, a Floquet multiplier is computed from the Poincaré map: <strong>values less than one imply stability</strong>, while <strong>greater than one indicate instability</strong>. 
       </p>
-      
       <ul>
-        <li><span class="badge">Acceleration-based</span>: linear increase of radius and speed, Floquet multiplier = <span class="kpi">0.80</span>. This strategy achieves <span class="kpi">full &amp; stable unfolding</span> within a few seconds.</li>
-        <li><span class="badge">Directional-throwing</span>: elliptic expansion with fixed speed, Floquet multiplier = <span class="kpi">4.29</span>. The dynamics diverge and the handkerchief fails to stabilize.</li>
-        <li><span class="badge">Periodic-energy injection</span>: constant radius with oscillating speed, Floquet multiplier = <span class="kpi">11.77</span>. Unfolding cannot be completed and the motion remains unstable.</li>
+        <li><strong>Acceleration-based strategy:</strong> linear increase of radius and speed, Floquet multiplier = <strong>0.80</strong>. This achieves <strong>full & stable unfolding</strong> within a few seconds.</li>
+        <li><strong>Directional-throwing strategy:</strong> elliptic expansion with fixed speed, Floquet multiplier = <strong>4.29</strong>. The dynamics diverge and the handkerchief fails to stabilize.</li>
+        <li><strong>Periodic-energy injection strategy:</strong> constant radius with oscillating speed, Floquet multiplier = <strong>11.77</strong>. Motion remains unstable.</li>
       </ul>
-
-      <div class="callout">
-        <strong>Key takeaway:</strong>
-        <span class="hl">Acceleration-based ramp</span> is Poincaré-stable 
-        (<span class="kpi">max Floquet ≈ 0.80 &lt; 1</span>) and achieves 
-        <span class="kpi">~99%</span> unfolding with millimeter-level tracking accuracy.
-      </div>
-      
-      <p>
-        Among these, only the acceleration-based strategy proves robust and reliable, consistent with experimental observations.
-      </p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
-          <source src="Videos/handkerchiefmodel.mp4" type="video/mp4"/>
-        </video>
-      </div>
+      <p>Among these, only the <strong>acceleration-based strategy</strong> proves robust and reliable, consistent with experimental observations.</p>
 
       <h2>EXPERIMENTS</h2>
       <h3>Initiation strategies</h3>
       <p>
         We evaluate acceleration-based, directional-throw, and oscillatory strategies. 
-        Experiments show that the acceleration-based strategy rapidly establishes steady spinning within 
-        <span class="kpi">~3 s</span>, achieving <span class="kpi">~99%</span> unfolding. 
-        Other strategies result in incomplete or unstable unfolding, consistent with Poincaré analysis.
+        Experiments show that the <strong>acceleration-based strategy</strong> rapidly establishes steady spinning within <strong>~3 s</strong>, achieving <strong>~99%</strong> unfolding. 
+        Other strategies result in incomplete or unstable unfolding.
       </p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
-          <source src="Videos/Exp1.mp4" type="video/mp4"/>
-        </video>
-      </div>
 
       <h3>Variable-axis spinning</h3>
       <p>
-        Under commanded reorientation ($\dot{\alpha}=0.1\,\text{rad/s}$, $\alpha=12^\circ$), 
-        the Cartesian trajectory and $x/y$ profiles show precise tracking with fingertip 
-        <span class="kpi">RMSE = 2.88&nbsp;mm</span> and <span class="kpi">R² = 0.9898</span>, 
-        validating the hierarchical controller for coordinated axis reorientation and stable spinning.
+        Under commanded reorientation (<strong>α̇ = 0.1 rad/s</strong>, <strong>α = 12°</strong>), 
+        the Cartesian trajectory and x/y profiles show precise tracking with fingertip <strong>RMSE = 2.88 mm</strong> and <strong>R² = 0.9898</strong>.
       </p>
-      <div class="content-video">
-        <video playsinline autoplay loop muted data-click-sound>
-          <source src="Videos/Exp2.mp4" type="video/mp4"/>
-        </video>
-      </div>
 
       <h2>CONCLUSION</h2>
       <p>
         We demonstrated that a parallel anti-parallelogram tendon-driven wrist, combined with hierarchical control and particle–spring modeling, 
-        enables robust and precise handkerchief spinning. The system achieves near-complete unfolding and millimeter-level accuracy. 
-        This framework provides a practical recipe for dynamic fabric manipulation, and future work will explore learning-based extensions for more complex skills and humanoid dual-arm coordination.
+        enables robust and precise handkerchief spinning. The system achieves <strong>near-complete unfolding</strong> and <strong>millimeter-level accuracy</strong>. 
+        This provides a practical recipe for dynamic fabric manipulation, and future work will explore learning-based extensions for more complex skills and humanoid dual-arm coordination.
       </p>
-
-      <h2>VIDEO</h2>
-      <div class="content-video">
-        <!-- 使用包装容器提供覆盖播放按钮 -->
-        <div class="video-wrap">
-          <video id="main-video" playsinline loop preload="metadata">
-            <source src="Videos/ICRA26_3588_3m45s.mp4" type="video/mp4"/>
-          </video>
-          <div id="main-overlay" class="play-overlay">
-            <div class="play-btn" title="Play with sound"></div>
-          </div>
-        </div>
-      </div>
     </div>
-
-    <footer>
-      <a href="#top" class="bold">To top &UpArrow;</a>
-    </footer>
-  </div> <!-- /.page-zoom -->
-
-  <!-- 交互脚本：点击开声/显示控制条，并支持覆盖按钮 -->
-  <script>
-    // 1) 所有标记 data-click-sound 的视频：点击开声/切换播放
-    document.querySelectorAll('video[data-click-sound]').forEach(function(v){
-      v.addEventListener('click', function(){
-        if (v.muted) {
-          v.muted = false;                 // 取消静音（用户手势触发）
-          v.setAttribute('controls','');   // 显示控制条
-          v.play && v.play().catch(()=>{});
-        } else {
-          if (v.paused) v.play && v.play().catch(()=>{});
-          else v.pause();
-        }
-      }, {passive:true});
-    });
-
-    // 2) 主视频覆盖按钮：点击后取消静音并播放，同时淡出覆盖层
-    (function(){
-      var mainVideo = document.getElementById('main-video');
-      var overlay   = document.getElementById('main-overlay');
-      if (!mainVideo || !overlay) return;
-
-      function startWithSound() {
-        mainVideo.muted = false;
-        mainVideo.setAttribute('controls','');
-        mainVideo.play && mainVideo.play().catch(()=>{});
-        overlay.classList.add('hidden');
-      }
-
-      overlay.addEventListener('click', startWithSound, {passive:true});
-
-      // 若用户直接点视频本身，也启声并隐藏覆盖层
-      mainVideo.addEventListener('click', function(){
-        if (mainVideo.muted) {
-          startWithSound();
-        }
-      }, {passive:true});
-    })();
-  </script>
+  </div>
 </body>
 </html>
